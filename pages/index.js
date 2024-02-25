@@ -18,9 +18,27 @@ const dummy=[
 
 export default function HomePage(props) {
   const [todos,settodos]=useState(dummy);
-  function addtodoHandler(todo){
-    settodos(prev=>[...prev,todo])
+
+  async function addtodoHandler(todo){ 
+    try {
+      const response = await fetch("/api/todos", {
+        method: "POST",
+        body: JSON.stringify(todo),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+  
+      const data = await response.json();
+  
+      console.log(data);
+      settodos(prev=>[...prev,todo])
+    } catch (error) {
+      console.log(error)
+    }
+    // settodos(prev=>[...prev,todo])
   }
+
   function completeHandler(id){
     const todoindex=todos.findIndex(i=>i.id===id)
     const todo=todos.find(i=>i.id===id)

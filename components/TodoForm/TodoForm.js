@@ -3,8 +3,12 @@ import classes from './TodoForm.module.css'
 export default function TodoForm(props){
   function submitHandler(e){
     e.preventDefault();
+    if(e.target.newtodo.value.trim(' ').length===0)
+    {
+      e.target.newtodo.value=''
+      return; 
+    }
     const newtodo={
-      id:Math.random(),
       title:e.target.newtodo.value,
       completed:false,
     }
