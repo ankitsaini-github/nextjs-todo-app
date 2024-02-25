@@ -1,0 +1,16 @@
+.todocontainer{
+  width: 100%;
+  padding: 20px;
+  background-color: antiquewhite;
+  border-radius: 10px;
+}
+.todolist{
+  padding: 0;
+  list-style: none;
+  margin: 0;
+}
+.todolist li{
+  font: 1.2rem sans-serif;
+  padding: 10px;
+  border-bottom: 2px solid burlywood;
+}

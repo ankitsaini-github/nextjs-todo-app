@@ -1,0 +1,34 @@
+.todoform{
+  padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  background-color: antiquewhite;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+.todoform label{
+  font: 1.5rem sans-serif;
+}
+.todoform input{
+  width: 100%;
+  padding: 10px;
+  border: 2px solid rgb(255, 228, 193);
+  border-radius: 5px;
+}
+.todoform button{
+  margin-top: 5px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(255, 93, 69);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+.todoform button:hover{
+  background-color: rgb(255, 106, 83);
+}
