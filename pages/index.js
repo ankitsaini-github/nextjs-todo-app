@@ -1,23 +1,44 @@
 import Head from "next/head";
+import { MongoClient } from "mongodb";
 import TodoForm from "../components/TodoForm/TodoForm";
 import TodoList from "../components/TodoList/TodoList";
 import { useState } from "react";
-const dummy=[
-  {id:111,title:'Learn DSA',completed:false},
-  {id:133,title:'play Game',completed:false},
-  {id:122,title:'Buy Grocery',completed:false}
-]
 
-// export function getStaticProps(){
-//   return {
-//     props:{
-//       todos:dummy,
-//     }
-//   }
-// }
+// const dummy=[
+//   {id:111,title:'Learn DSA',completed:false},
+//   {id:133,title:'play Game',completed:false},
+//   {id:122,title:'Buy Grocery',completed:false}
+// ]
+
+export async function getStaticProps(){
+  let todos=[];
+  try {
+    const client = await MongoClient.connect(
+      "mongodb+srv://ankit:ankit123123123@cluster0.goaussj.mongodb.net/todos?retryWrites=true&w=majority&appName=Cluster0",
+      { useNewUrlParser: true, useUnifiedTopology: true }
+    );
+
+    const db = client.db("todos");
+    todos = await db.collection("todoscollection").find({}).toArray();
+
+    client.close();
+    return {
+      props:{
+        todos:todos.map((todo) => ({
+          title: todo.title,
+          completed:todo.completed,
+          id: todo._id.toString(),
+        })),
+      },
+      revalidate:1,
+    }
+  } catch (error) {
+    console.error("Error connecting to MongoDB:", error);
+  }
+}
 
 export default function HomePage(props) {
-  const [todos,settodos]=useState(dummy);
+  const [todos,settodos]=useState(props.todos);
 
   async function addtodoHandler(todo){ 
     try {
