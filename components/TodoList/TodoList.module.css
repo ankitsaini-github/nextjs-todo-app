@@ -24,6 +24,18 @@
   background-color: antiquewhite;
   border-radius: 10px;
 }
+.completedtodocontainer{
+  width: 100%;
+  padding: 20px;
+  background-color: rgb(202, 255, 204);
+  border-radius: 10px;
+}
+.completedtodocontainer ul li{
+  border-bottom: 2px solid rgb(145, 222, 135);
+}
+.completedtodocontainer ul li:hover{
+  background-color: rgba(0, 0, 0, 0.05);
+}
 .todolist{
   padding: 0;
   list-style: none;
@@ -33,4 +45,7 @@
   font: 1.2rem sans-serif;
   padding: 10px;
   border-bottom: 2px solid burlywood;
+}
+.todolist li:hover{
+  background-color: rgba(0, 0, 0, 0.05);
 }

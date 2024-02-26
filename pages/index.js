@@ -113,7 +113,7 @@ export default function HomePage(props) {
       <h1>Welcome to TODO-APP !!</h1>
       <TodoForm onSubmit={addtodoHandler} addForm={true}/>
       <h1>Task to do:</h1>
-      <TodoList todos={todos} completed={false} completetodo={completeHandler} onEdit={()=>{fetchtodos();}}/>
+      <TodoList todos={todos} completed={false} completetodo={completeHandler} onEdit={()=>{fetchtodos();}} onDelete={()=>fetchtodos()}/>
     </>
   );
 }

@@ -56,6 +56,6 @@ export default function CompletedTaskPage(props){
       <meta name="description" content="These task are completed, Well done !!"/>
     </Head>
     <h1>Completed Task : </h1>
-    <TodoList todos={todos} completed={true} onEdit={()=>{fetchtodos();}}/>
+    <TodoList todos={todos} completed={true} onEdit={()=>{fetchtodos();}} onDelete={()=>fetchtodos()}/>
   </>
 }

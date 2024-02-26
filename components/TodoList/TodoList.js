@@ -20,12 +20,27 @@ export default function TodoList(props) {
     seteditedtodo(todo);
     console.log("edit:", todo._id);
   }
-  function deleteHandler(todo) {
-    console.log("delete:", todo._id);
+  async function deleteHandler(id) {
+    try {
+      const res=await fetch('/api/todos/'+id,{
+        method:'DELETE',
+        body:JSON.stringify({id:id}),
+        headers:{
+          'Content-Type':'application/json',
+        }
+      })
+      const data=await res.json();
+      console.log(data)
+      props.onDelete();
+      
+    } catch (error) {
+      console.log('error deleting :',error)
+    }
+    console.log("delete:", id);
   }
   return (
     <>
-      <div className={classes.todocontainer}>
+      <div className={props.completed?classes.completedtodocontainer:classes.todocontainer}>
         {showEdit && (
             <div className={classes.modaloverlay} onClick={closeModal}>
               <div className={classes.modal}>
@@ -34,7 +49,7 @@ export default function TodoList(props) {
             </div>
         )}
         <ul className={classes.todolist}>
-          {props.todos ? (
+          {props.todos.length>0 ? (
             props.todos
               .filter((todo) => todo.completed === props.completed)
               .map((todo) => (
@@ -45,7 +60,7 @@ export default function TodoList(props) {
                   <p>{todo.title}</p>
                   <span>
                     <button onClick={editHandler.bind(null, todo)}>Edit</button>
-                    <button onClick={deleteHandler.bind(null, todo)}>
+                    <button onClick={deleteHandler.bind(null, todo._id)}>
                       Delete
                     </button>
                   </span>
