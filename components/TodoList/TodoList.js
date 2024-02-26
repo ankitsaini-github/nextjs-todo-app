@@ -1,9 +1,9 @@
 import classes from './TodoList.module.css'
 
 export default function TodoList(props){
-  function doneHandler(id){
-    props.completetodo(id)
-    console.log(id)
+  function doneHandler(todo){
+    props.completetodo(todo)
+    console.log(todo._id)
   }
   function deleteHandler(){
     
@@ -13,8 +13,8 @@ export default function TodoList(props){
       <ul className={classes.todolist}>
         {props.todos ?
           props.todos.filter(todo=>todo.completed===props.completed).map((todo)=>(
-            <li key={todo.id}>
-              {!todo.completed && <button onClick={doneHandler.bind(null,todo.id)}>DONE</button>}
+            <li key={todo._id}>
+              {!todo.completed && <button onClick={doneHandler.bind(null,todo)}>DONE</button>}
               <p>{todo.title}</p>
               <button onClick={deleteHandler}>Delete</button>
             </li>

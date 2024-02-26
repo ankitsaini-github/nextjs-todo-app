@@ -27,7 +27,7 @@ export async function getStaticProps(){
         todos:todos.map((todo) => ({
           title: todo.title,
           completed:todo.completed,
-          id: todo._id.toString(),
+          _id: todo._id.toString(),
         })),
       },
       revalidate:1,
@@ -39,6 +39,25 @@ export async function getStaticProps(){
 
 export default function HomePage(props) {
   const [todos,settodos]=useState(props.todos);
+
+  async function fetchtodos(){
+    try {
+      const response = await fetch("/api/todos", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+  
+      const data = await response.json();
+  
+      console.log('fetched:',data);
+      
+      settodos(data.todos)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   async function addtodoHandler(todo){ 
     try {
@@ -53,16 +72,33 @@ export default function HomePage(props) {
       const data = await response.json();
   
       console.log(data);
-      settodos(prev=>[...prev,todo])
+      await fetchtodos();
+      // settodos(prev=>[...prev,{...todo,id:Math.random()}])
     } catch (error) {
       console.log(error)
     }
     // settodos(prev=>[...prev,todo])
   }
 
-  function completeHandler(id){
-    const todoindex=todos.findIndex(i=>i.id===id)
-    const todo=todos.find(i=>i.id===id)
+  async function completeHandler(completetodo){
+
+    try {
+      console.log('setting to true :',completetodo)
+      const res=await fetch('/api/todos/'+completetodo._id,{
+        method:'PUT',
+        body:JSON.stringify({...completetodo,completed:true}),
+        headers:{
+          'Content-Type':'application/json'
+        },
+      })
+      const data=await res.json();
+      console.log('done true:',data)
+    } catch (error) {
+      console.log('error updating:',error)
+    }
+
+    const todoindex=todos.findIndex(i=>i._id===completetodo._id)
+    const todo=todos.find(i=>i._id===completetodo._id)
     todo.completed=true;
     const updatedtodos=[...todos]
     updatedtodos[todoindex]=todo;
