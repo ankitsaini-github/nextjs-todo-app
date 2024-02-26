@@ -111,9 +111,9 @@ export default function HomePage(props) {
         <meta name="description" content="Todo App where you can list all your task and complete them"/>
       </Head>
       <h1>Welcome to TODO-APP !!</h1>
-      <TodoForm addtodo={addtodoHandler}/>
+      <TodoForm onSubmit={addtodoHandler} addForm={true}/>
       <h1>Task to do:</h1>
-      <TodoList todos={todos} completed={false} completetodo={completeHandler}/>
+      <TodoList todos={todos} completed={false} completetodo={completeHandler} onEdit={()=>{fetchtodos();}}/>
     </>
   );
 }

@@ -1,6 +1,7 @@
 import Head from "next/head";
 import {MongoClient} from "mongodb";
 import TodoList from "../../components/TodoList/TodoList";
+import { useState } from "react";
 
 export async function getStaticProps(){
   let todos=[];
@@ -30,12 +31,31 @@ export async function getStaticProps(){
 }
 
 export default function CompletedTaskPage(props){
+  const [todos,settodos]=useState(props.todos)
+  async function fetchtodos(){
+    try {
+      const response = await fetch("/api/todos", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+  
+      const data = await response.json();
+  
+      console.log('fetched:',data);
+      
+      settodos(data.todos)
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return <>
     <Head>
       <title>Completed Task</title>
       <meta name="description" content="These task are completed, Well done !!"/>
     </Head>
     <h1>Completed Task : </h1>
-    <TodoList todos={props.todos} completed={true}/>
+    <TodoList todos={todos} completed={true} onEdit={()=>{fetchtodos();}}/>
   </>
 }
