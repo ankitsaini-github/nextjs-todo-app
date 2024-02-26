@@ -23,12 +23,14 @@
   padding: 20px;
   background-color: antiquewhite;
   border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 .completedtodocontainer{
   width: 100%;
   padding: 20px;
   background-color: rgb(202, 255, 204);
   border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 .completedtodocontainer ul li{
   border-bottom: 2px solid rgb(145, 222, 135);
