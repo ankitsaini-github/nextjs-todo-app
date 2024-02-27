@@ -93,16 +93,17 @@ export default function HomePage(props) {
       })
       const data=await res.json();
       console.log('done true:',data)
+      await fetchtodos();
     } catch (error) {
       console.log('error updating:',error)
     }
 
-    const todoindex=todos.findIndex(i=>i._id===completetodo._id)
-    const todo=todos.find(i=>i._id===completetodo._id)
-    todo.completed=true;
-    const updatedtodos=[...todos]
-    updatedtodos[todoindex]=todo;
-    settodos(updatedtodos);
+    // const todoindex=todos.findIndex(i=>i._id===completetodo._id)
+    // const todo=todos.find(i=>i._id===completetodo._id)
+    // todo.completed=true;
+    // const updatedtodos=[...todos]
+    // updatedtodos[todoindex]=todo;
+    // settodos(updatedtodos);
   }
   return (
     <>
