@@ -1,4 +1,7 @@
+import CheckIcon from "../ui/CheckIcon";
+import EditIcon from "../ui/EditIcon";
 import TodoForm from "../TodoForm/TodoForm";
+import TrashBinIcon from "../ui/TrashBinIcon";
 import classes from "./TodoList.module.css";
 import { useState } from "react";
 
@@ -54,14 +57,20 @@ export default function TodoList(props) {
               .filter((todo) => todo.completed === props.completed)
               .map((todo) => (
                 <li key={todo._id}>
-                  {!todo.completed && (
-                    <button onClick={doneHandler.bind(null, todo)}>DONE</button>
-                  )}
-                  <p>{todo.title}</p>
                   <span>
-                    <button onClick={editHandler.bind(null, todo)}>Edit</button>
-                    <button onClick={deleteHandler.bind(null, todo._id)}>
-                      Delete
+                    {!todo.completed && (
+                      <button onClick={doneHandler.bind(null, todo)} className={classes.todocheck}>
+                        <CheckIcon/>
+                      </button>
+                    )}
+                    <p>{todo.title}</p>
+                  </span>
+                  <span className={classes.btngrp}>
+                    <button onClick={editHandler.bind(null, todo)} className={classes.todoedit}>
+                      <EditIcon/>
+                    </button>
+                    <button onClick={deleteHandler.bind(null, todo._id)} className={classes.tododel}>
+                      <TrashBinIcon/>
                     </button>
                   </span>
                 </li>
